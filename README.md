@@ -1,2 +1,2 @@
 # Reinforcement_Learning_SBOX_basic
-RL Sandbox for testing basic algorithms and approaches
+RL Sandbox for testing algorithms and approaches
