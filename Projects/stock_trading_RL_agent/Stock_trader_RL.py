@@ -313,8 +313,8 @@ if __name__ == '__main__':
                       help='either "train" or "test"')
   args = parser.parse_args()
 
-  maybe_make_dir(models_folder)
-  maybe_make_dir(rewards_folder)
+  make_dir(models_folder)
+  make_dir(rewards_folder)
 
   data = get_data()
   n_timesteps, n_stocks = data.shape
