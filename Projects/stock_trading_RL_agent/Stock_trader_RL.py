@@ -14,26 +14,26 @@ import pickle
 # AAPL (Apple), MSI (Motorola), SBUX (Starbucks)
 # We will also use close price only
 
-def load_data():
+def get_data():
     # returns a T x 3 list of stock prices
     # each row is a different stock
     # 0 = AAPL
     # 1 = MSI
     # 2 = SBUX
-    df = pd.read_csv('../input_data/aapl_msi_sbux.csv')
+    df = pd.read_csv('input_data/aapl_msi_sbux.csv')
     return df.values
 
 
 def get_scaler(env):
-    # return scikit-learn scaler object to scale the states
+  # return scikit-learn scaler object to scale the states
 
-    states = []
-    for _ in range(env.n_step):
-      action = np.random.choice(env.action_space)
-      state, reward, done, info = env.step(action)
-      states.append(state)
-      if done:
-        break
+  states = []
+  for _ in range(env.n_step):
+    action = np.random.choice(env.action_space)
+    state, reward, done, info = env.step(action)
+    states.append(state)
+    if done:
+      break
 
   scaler = StandardScaler()
   scaler.fit(states)
@@ -43,7 +43,7 @@ def make_dir(directory):
   if not os.path.exists(directory):
     os.makedirs(directory)
 
-class LinearRegression:
+class LinearModel:
   """ A linear regression model """
   def __init__(self, input_dim, n_action):
     self.W = np.random.randn(input_dim, n_action) / np.sqrt(input_dim)
@@ -251,16 +251,18 @@ class DQNAgent(object):
 
   def act(self, state):
     if np.random.rand() <= self.epsilon:
-      return np.random.choice(self.action_size)
+      return np.random.choice(self.action_size) # random action
     act_values = self.model.predict(state)
-    return np.argmax(act_values[0])  # returns action
+    return np.argmax(act_values[0])  # perfroms greedy action
 
 
   def train(self, state, action, reward, next_state, done):
     if done:
       target = reward
     else:
-      target = reward + self.gamma * np.amax(self.model.predict(next_state), axis=1)
+      target = reward + self.gamma * np.amax(self.model.predict(next_state), 
+                                             axis=1
+                                             )
 
     target_full = self.model.predict(state)
     target_full[0, action] = target

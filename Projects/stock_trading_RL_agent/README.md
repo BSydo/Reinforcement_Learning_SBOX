@@ -1,3 +1,9 @@
+## How to run it:
+for train:
+'''python Stock_trader_RL.py -m train && plot_results.py -m train'''
+for test:
+'''python Stock_trader_RL.py -m test && plot_results.py -m test'''
+
 ## Environment 
 mimics the OpenAI gym API
 state = env.reset(), next_state, reward, done, info = env.step(action)
