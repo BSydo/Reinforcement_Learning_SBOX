@@ -2,10 +2,10 @@ from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import argparse
 
 from datetime import datetime
 import itertools
-import argparse
 import re
 import os
 import pickle
